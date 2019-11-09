@@ -4,8 +4,7 @@ html, body {
 
 body {
     padding: 70px;
-    /* background-color: #f6f6ef; */
-    background-color: #fc6621;
+    background-color: #f7e7e0;
 }
 
 #navbar{
@@ -37,12 +36,11 @@ body {
 }
 
 .well {
-    /* background-color: #fc6621; */
     background-color:#f6f6ef;
     border-color: #000;
 }
 .container{
-    background-color:#fc6621;
+    background-color:white;
 }
 
 #socialLinks{

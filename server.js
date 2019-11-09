@@ -9,6 +9,8 @@ const express = require('express'),
       logger = require('morgan'),
       mongoose = require('mongoose'),
       methodOverride = require('method-override');
+      const axios = require("axios");
+      const cheerio = require("cheerio");
 
 // set up express app
 // =============================================================
@@ -25,20 +27,24 @@ app
     .use(express.static(__dirname + '/public'))
     .engine('handlebars', exphbs({ defaultLayout: 'main' }))
     .set('view engine', 'handlebars')
-    .use(require('./controllers'));
+    // .use(require('./controllers'));
 
 // configure mongoose and start the server
 // =============================================================
 // set mongoose to leverage promises
 mongoose.Promise = Promise;
 
-const dbURI = process.env.MONGODB_URI || "mongodb://localhost:27017/newsArticles";
+const dbURI = process.env.MONGODB_URI || "mongodb://localhost:27017/newsScraper";
 
 // Database configuration with mongoose
 mongoose.set('useCreateIndex', true)
 mongoose.connect(dbURI, { useNewUrlParser: true });
 
 const db = mongoose.connection;
+
+const routes = require('./controllers')
+
+app.use(routes)
 
 // Show any mongoose errors
 db.on("error", function(error) {
@@ -48,7 +54,7 @@ db.on("error", function(error) {
 // Once logged in to the db through mongoose, log a success message
 db.once("open", function() {
     console.log("Mongoose connection successful.");
-    // start the server, listen on port 3000
+    // start the server, listen on port 8000
     app.listen(PORT, function() {
         console.log("App running on port " + PORT);
     });
